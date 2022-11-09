@@ -40,7 +40,7 @@ class PublicTagsApiTests(TestCase):
 
 
 class PrivateTagsApiTests(TestCase):
-    """Test auhtenticated API requests."""
+    """Test authenticated API requests."""
 
     def setUp(self):
         self.user = create_user()
