@@ -306,7 +306,7 @@ class PrivateRecipeApiTests(TestCase):
                 name=ingredient['name'],
                 user=self.user,
             ).exists()
-            self.assertEqual(exists)
+            self.assertTrue(exists)
 
     def test_create_recipe_with_existing_ingredient(self):
         """Test creating a new recipe with existing ingredient."""
