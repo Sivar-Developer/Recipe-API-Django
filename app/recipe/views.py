@@ -5,8 +5,9 @@ from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
     OpenApiParameter,
-    OpenApiTypes
+    OpenApiTypes,
 )
+
 from rest_framework import (
     viewsets,
     mixins,
@@ -31,13 +32,13 @@ from recipe import serializers
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
-                description='Comma seperated list of tag IDs to filter',
+                description='Comma separated list of tag IDs to filter',
             ),
             OpenApiParameter(
                 'ingredients',
                 OpenApiTypes.STR,
-                description='Comma seperated list of ingredient IDs to filter',
-            )
+                description='Comma separated list of ingredient IDs to filter',
+            ),
         ]
     )
 )
@@ -54,7 +55,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Retrieve recipes for authenticated user."""
-        # return self.queryset.filter(user=self.request.user).order_by('-id')
         tags = self.request.query_params.get('tags')
         ingredients = self.request.query_params.get('ingredients')
         queryset = self.queryset
@@ -122,9 +122,10 @@ class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
         queryset = self.queryset
         if assigned_only:
             queryset = queryset.filter(recipe__isnull=False)
+
         return queryset.filter(
-                user=self.request.user
-            ).order_by('-name').distinct()
+            user=self.request.user
+        ).order_by('-name').distinct()
 
 
 class TagViewSet(BaseRecipeAttrViewSet):
